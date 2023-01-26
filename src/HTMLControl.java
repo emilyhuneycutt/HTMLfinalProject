@@ -61,10 +61,12 @@ public class HTMLControl implements ActionListener {
         mainFrame.add(mb);
 
 
-        firstLURL = new JTextField();
+        firstLURL = new JTextField("URL Input");
         mainFrame.add(firstLURL);
-        secondLURL = new JTextField();
+        secondLURL = new JTextField("Word Input");
         mainFrame.add(secondLURL);
+        JLabel URlInput = new JLabel();
+        JLabel WordInput = new JLabel();
         mainFrame.setJMenuBar(mb);
        // headerLabel = new JLabel("", JLabel.CENTER);
         statusLabel = new JTextArea();
@@ -92,6 +94,8 @@ public class HTMLControl implements ActionListener {
         goButton.setActionCommand("Go");
 
         goButton.addActionListener(new ButtonClickListener());
+        //URlInput.getText();
+        //WordInput.add(secondLURL);
 
         controlPanel.add(goButton);
         resultPannel.add(scrollPane, BorderLayout.CENTER);
