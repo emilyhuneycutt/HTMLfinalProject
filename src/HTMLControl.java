@@ -11,7 +11,7 @@ import java.net.URL;
 public class HTMLControl implements ActionListener {
     private JFrame mainFrame;
     private JLabel headerLabel;
-    private JLabel statusLabel;
+    private JTextArea statusLabel;
     private JPanel controlPanel;
     private JMenuBar mb;
     private JMenu file, edit, help;
@@ -23,6 +23,7 @@ public class HTMLControl implements ActionListener {
     private JButton del,two;
     private JTextField firstLURL;
     private JTextField secondLURL;
+    private JPanel resultPannel;
 
 
     public HTMLControl() {
@@ -37,7 +38,7 @@ public class HTMLControl implements ActionListener {
     private void prepareGUI() {
         mainFrame = new JFrame("HTML Link Puller");
         mainFrame.setSize(WIDTH, HEIGHT);
-        mainFrame.setLayout(new GridLayout(10, 1));
+        mainFrame.setLayout(new GridLayout(4, 1));
         cut = new JMenuItem("cut");
         copy = new JMenuItem("copy");
         paste = new JMenuItem("paste");
@@ -65,9 +66,17 @@ public class HTMLControl implements ActionListener {
         secondLURL = new JTextField();
         mainFrame.add(secondLURL);
         mainFrame.setJMenuBar(mb);
-        headerLabel = new JLabel("", JLabel.CENTER);
-        statusLabel = new JLabel("", JLabel.CENTER);
+       // headerLabel = new JLabel("", JLabel.CENTER);
+        statusLabel = new JTextArea();
         statusLabel.setSize(350, 100);
+
+
+        resultPannel = new JPanel();
+        resultPannel.setLayout(new BorderLayout());
+
+        JScrollPane scrollPane = new JScrollPane(statusLabel);
+
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         mainFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent) {
@@ -75,14 +84,8 @@ public class HTMLControl implements ActionListener {
             }
         });
         controlPanel = new JPanel((new BorderLayout()));
-        controlPanel.setLayout(new FlowLayout());
-        mainFrame.add(controlPanel);
-        mainFrame.add(statusLabel);
-        mainFrame.setVisible(true);
-    }
 
-    private void showEventDemo() {
-        headerLabel.setText("Control in action: Button");
+        controlPanel.setLayout(new FlowLayout());
 
         JButton goButton = new JButton("Go");
 
@@ -91,6 +94,21 @@ public class HTMLControl implements ActionListener {
         goButton.addActionListener(new ButtonClickListener());
 
         controlPanel.add(goButton);
+        resultPannel.add(scrollPane, BorderLayout.CENTER);
+     //   resultPannel.add(scrollPane);
+//        resultPannel.add(scrollPane);
+
+
+        mainFrame.add(controlPanel);
+        mainFrame.add(resultPannel);
+      //  mainFrame.add(statusLabel, BorderLayout.CENTER);
+        mainFrame.setVisible(true);
+    }
+
+    private void showEventDemo() {
+        headerLabel.setText("Control in action: Button");
+
+
 
         mainFrame.setVisible(true);
     }
@@ -128,7 +146,8 @@ public class HTMLControl implements ActionListener {
                     int end = line.indexOf("\"", start);
                     String PartofLine = line.substring(start,end);
                     System.out.println("Links Found: " + PartofLine);
-                    
+                    statusLabel.append("\n"+PartofLine);
+
                 }
 
             }
